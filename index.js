@@ -14,12 +14,17 @@ readdir('./crawlers').forEach(function(file) {
 
   var crawlerFile = require('./crawlers/' + file);
 
+  if (!crawlerFile.receiver || !crawlerFile.sender || !crawlerFile.url || !crawlerFile.check) {
+    throw new Error('Crawler properties missing');
+  }
+
   var crawler = new Crawler({
     callback: function(error, result, $) {
 
       if (crawlerFile.check($)) {
-        var text = 'Notification for' + crawlerFile.url;
-        sendText(crawlerFile.sender, crawlerFile.receiver, text, text);
+        var text = 'Notification for ' + crawlerFile.url;
+        sendMail(crawlerFile.sender, crawlerFile.receiver, text, text);
+        process.exit(0);
       } else {
         crawler.queue(crawlerFile.url);
       }
