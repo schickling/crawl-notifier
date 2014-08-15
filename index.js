@@ -26,7 +26,9 @@ readdir('./crawlers').forEach(function(file) {
         sendMail(crawlerFile.sender, crawlerFile.receiver, text, text);
         process.exit(0);
       } else {
-        crawler.queue(crawlerFile.url);
+        setTimeout(function() {
+          crawler.queue(crawlerFile.url);
+        }, 1000 * 60 * 5);
       }
 
     }
