@@ -15,6 +15,7 @@ A `crawler` file should be a UMD style module defining an objects with `email`, 
 
 ```js
 module.exports = {
+	mailgun: 'your-api-key',
 	email: ['john.doe@gmail.com', 'pheven@gmail.com'],
 	url: 'http://time.is',
 	check: function($) {
