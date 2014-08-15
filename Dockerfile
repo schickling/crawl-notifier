@@ -6,4 +6,6 @@ ADD package.json /data/package.json
 
 RUN cd /data && npm install
 
+VOLUME ["/data/crawlers"]
+
 CMD ["node", "/data/index.js"]
