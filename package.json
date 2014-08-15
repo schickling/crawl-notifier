@@ -1,0 +1,29 @@
+{
+  "name": "crawl-notifier",
+  "version": "0.0.0",
+  "description": "Crawl any website and get notified via mail when changes occur",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/schickling/crawl-notifier.git"
+  },
+  "keywords": [
+    "crawl",
+    "notify",
+    "docker",
+    "notification"
+  ],
+  "author": "Johannes Schickling <schickling.j@gmail.com> (https://github.com/schickling)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schickling/crawl-notifier/issues"
+  },
+  "homepage": "https://github.com/schickling/crawl-notifier",
+  "dependencies": {
+    "crawler": "^0.2.6",
+    "mailgun": "^0.4.2"
+  }
+}

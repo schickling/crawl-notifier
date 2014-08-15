@@ -6,7 +6,7 @@ Crawl any website and get notified via mail when changes occur
 ## Usage
 
 ```sh
-$ docker run -d -v /my/local/crawlers:/data/crawlers schickling/crawl-notifier
+$ docker run -d -e "MAILGUN_KEY=api-key" -v /my/local/crawlers:/data/crawlers schickling/crawl-notifier
 ```
 
 ### Example Crawler
@@ -15,7 +15,6 @@ A `crawler` file should be a UMD style module defining an objects with `email`, 
 
 ```js
 module.exports = {
-	mailgun: 'your-api-key',
 	email: ['john.doe@gmail.com', 'pheven@gmail.com'],
 	url: 'http://time.is',
 	check: function($) {
