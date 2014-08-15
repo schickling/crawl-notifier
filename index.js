@@ -1,17 +1,37 @@
 var Crawler = require('crawler').Crawler;
 var Mailgun = require('mailgun').Mailgun;
+var readdir = require('fs').readdirSync;
 
 if (!process.env.MAILGUN_KEY) {
   throw new Error('Env variable MAILGUN_KEY not set');
 }
 
-var mg = new Mailgun(process.env.MAILGUN_KEY);
+if (readdir('./crawlers').length === 0) {
+  throw new Error('No crawlers found');
+}
 
-mg.sendText('example@example.com', ['Recipient 1 <rec1@example.com>', 'rec2@example.com'],
-  'This is the subject',
-  'This is the text',
-  'noreply@example.com', {},
-  function(err) {
-    if (err) console.log('Oh noes: ' + err);
-    else console.log('Success');
+readdir('./crawlers').forEach(function(file) {
+
+  var crawlerFile = require('./crawlers/' + file);
+
+  var crawler = new Crawler({
+    callback: function(error, result, $) {
+
+      if (crawlerFile.check($)) {
+        var text = 'Notification for' + crawlerFile.url;
+        sendText(crawlerFile.sender, crawlerFile.receiver, text, text);
+      } else {
+        crawler.queue(crawlerFile.url);
+      }
+
+    }
   });
+
+  crawler.queue(crawlerFile.url);
+
+});
+
+function sendMail(from, to, subject, text) {
+  var mailgun = new Mailgun(process.env.MAILGUN_KEY);
+  mailgun.sendText(from, to, subject, text);
+}

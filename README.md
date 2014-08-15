@@ -11,11 +11,12 @@ $ docker run -d -e "MAILGUN_KEY=api-key" -v /my/local/crawlers:/data/crawlers sc
 
 ### Example Crawler
 
-A `crawler` file should be a UMD style module defining an objects with `email`, `url` and `check` property like in the example below.
+A `crawler` file should be a UMD style module defining an objects with `receiver`, `sender`, `url` and `check` property like in the example below.
 
 ```js
 module.exports = {
-	email: ['john.doe@gmail.com', 'pheven@gmail.com'],
+	receiver: ['john.doe@gmail.com', 'pheven@gmail.com'],
+	sender: 'someone@gmail.com',
 	url: 'http://time.is',
 	check: function($) {
 		return $('#twd').text() === '23:00:00'; // bed time
