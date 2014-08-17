@@ -1,11 +1,16 @@
-FROM dockerfile/nodejs
+FROM node
 MAINTAINER Johannes Schickling "schickling.j@gmail.com"
 
-ADD index.js /data/index.js
-ADD package.json /data/package.json
+# copy application
+ADD app /data
 
-RUN cd /data && npm install
+# set workdir
+WORKDIR /data
 
+# install dependencies
+RUN npm install
+
+# define volume mount point
 VOLUME ["/data/crawlers"]
 
-CMD ["node", "/data/index.js"]
+CMD ["node", "index.js"]

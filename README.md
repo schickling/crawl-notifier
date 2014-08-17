@@ -3,15 +3,24 @@ crawl-notifier
 
 Crawl any website and get notified via mail when changes occur
 
+## Features
+
+* Deadsimple configuration & usage
+* Runs inside a [Docker](http://www.docker.com) container
+* Uses jQuery for crawling
+* Sends notifications via your [Mailgun](https://mailgun.com/) account
+* Multiple receivers possible
+* Runs until the `check` was successful
+
 ## Usage
 
 ```sh
 $ docker run -d -e "MAILGUN_KEY=api-key" -v /my/local/crawlers:/data/crawlers schickling/crawl-notifier
 ```
 
-### Example Crawler
+For each page you want to crawl define a `crawler` file in a directory you mount with the `-v` argument above. A `crawler` file should be a UMD style module, defining an objects with `receiver`, `sender`, `url` and `check` properties like in the example below. The `check` method will be invoked with jQuery as parameter.
 
-A `crawler` file should be a UMD style module defining an objects with `receiver`, `sender`, `url` and `check` property like in the example below.
+### Example Crawler
 
 ```js
 module.exports = {
@@ -26,6 +35,5 @@ module.exports = {
 
 ## Credits
 
-* **Node Docker Image** - https://github.com/dockerfile/nodejs
 * **Node Mailgun API** - https://github.com/shz/node-mailgun
 * **Node Web Crawler** - https://github.com/sylvinus/node-crawler
